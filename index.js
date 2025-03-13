@@ -29,14 +29,21 @@ function init() {
     h1.innerHTML = "Freelancer Forum";
     root.append(h1);
 
-  //create and add a container div to hold the freelancers
+  //create and add a container h2 to hold the average prices
+     const h2 = document.createElement("h2");
+    h2.id = "h2";
+     h2.classList.add("h2");
+     root.append(h2);
 
+  //create and add a container div to hold the freelancers
     const freelancerContainer = document.createElement("div");
     freelancerContainer.id = "freelancerContainer";
     freelancerContainer.classList.add("freelancers");
     root.append(freelancerContainer);
 
     renderFreelancers();
+
+    renderAveragePrices();
 };
 
 function renderFreelancers(){
@@ -56,13 +63,41 @@ function renderFreelancers(){
 
 
 //Step 3: write a function that calls and renders the new random freelancer
-
+const addFreelancer = () => {
+    const randomIndex = Math.floor(Math.random() * newFreelancers.length);
+    const newFreelancer = newFreelancers[randomIndex];
+    freelancers.push(newFreelancer);
+    renderFreelancers();
+}
 
 
 //Step 4: change the interval for the random freelancer to appear
 
+const add = setInterval(addFreelancer,3000);
+setTimeout(()=>{
+    clearInterval(add)},9000);
+
+
 //Step 5: write a function to calculate the average starting price of the freelancers' array
 
+function averagePrice(){
+    const totalPrices = freelancers.reduce((total, ind)=> total + ind.startingPrice, 0);
+    const avgPrice = (totalPrices / (freelancers.length -1));
+    console.log(avgPrice);
+    return avgPrice;};
+
+function renderAveragePrices(){
+    const avgContainer = document.querySelector("#h2");
+    h2.innerHTML = `The average starting price is: ${averagePrice()}!`;
+    avgContainer.append;
+}
+//The function accurately calculates the average and updates in the console, but not on the HTML...
+
+
+const setAvgPrice = setInterval(averagePrice,3000);
+
+setTimeout(()=>{
+    clearInterval(setAvgPrice)},9000);
 
 
 //call init function
